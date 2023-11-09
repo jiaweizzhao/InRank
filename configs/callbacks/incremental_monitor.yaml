@@ -1,0 +1,5 @@
+defaults:
+  - default.yaml
+
+log_incremental_fno:
+  _target_: src.callbacks.incremental_monitor.LogIncrementalMLP

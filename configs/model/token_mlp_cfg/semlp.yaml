@@ -1,0 +1,2 @@
+_target_: src.models.layers.mlp.SeMlp
+drop: 0.1

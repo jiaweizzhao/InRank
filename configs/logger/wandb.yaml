@@ -1,0 +1,14 @@
+# https://wandb.ai
+
+wandb:
+  _target_: pytorch_lightning.loggers.wandb.WandbLogger
+  project: InRank
+  name: ${name}
+  save_dir: "."
+  mode: online # set offline to store all logs only locally
+  # id: ${oc.select:name} # pass correct id to resume experiment!
+  log_model: False
+  prefix: ""
+  job_type: "train"
+  group: ""
+  tags: []

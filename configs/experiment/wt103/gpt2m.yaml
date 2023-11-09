@@ -1,0 +1,31 @@
+# @package _global_
+defaults:
+  - /experiment/wt103/gpt2.yaml
+
+model:
+  config:
+    n_embd: 1024
+    n_head: 16
+    n_layer: 24
+
+trainer:
+  precision: 32
+
+datamodule:
+  batch_size: 8  # Per GPU
+
+train:
+  optimizer:
+    lr: 1.5e-4
+
+callbacks:
+  model_checkpoint:
+    monitor: val/loss
+    mode: min
+    save_top_k: 2
+    save_last: True
+    dirpath: /ngc_workspace/jiawei/projects/fly-incremental-project-data/checkpoints/${name}/
+    filename: epoch_{epoch}
+    auto_insert_metric_name: False
+
+name: gpt2m-baseline

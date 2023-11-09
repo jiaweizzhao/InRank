@@ -1,0 +1,3 @@
+_target_: src.models.attention.reformer_attention.ReformerAttention
+n_hashes: ???
+bucket_size: ???

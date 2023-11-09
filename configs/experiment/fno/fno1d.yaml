@@ -1,0 +1,59 @@
+# @package _global_
+defaults:
+  - override /trainer: default # choose trainer from 'configs/trainer/'
+  - override /model: fno1d
+  - override /datamodule: burgers
+  - override /optimizer: adam
+  - override /scheduler: step
+  - override /callbacks: default
+  - override /metrics: [mse]
+  - override /logger: wandb
+
+seed: 1111
+
+model:
+  modes: 16 # 50
+  width: 64
+
+trainer:
+  accelerator: gpu
+  devices: 1
+  num_nodes: 1
+  max_epochs: 500
+
+datamodule:
+  batch_size: 20
+  subsampling_rate: 8
+
+train:
+  optimizer:
+    lr:  1e-3
+    weight_decay: 1e-4
+  scheduler:
+    step_size: 50
+    gamma: 0.5
+  scheduler_interval: epoch
+  loss_fn:
+    # _target_: src.losses.relative_l2.RelativeL2
+    _target_: src.losses.lploss.LpLoss
+    size_average: False
+
+callbacks:
+  early_stopping: null
+  model_checkpoint: null
+  # model_checkpoint:
+  #   monitor: val/loss
+  #   mode: min
+  #   save_top_k: -1
+
+logger:
+  wandb:
+    project: new-code-base
+    entity: 'research-pino_ifno'  # set to name of your wandb team or just remove it
+
+    # # for wandb sweep config
+    # save_dir: ${work_dir}/wandb
+
+name: 'fno1d-baseline'
+
+test_after_training: False # temporarliy disable as test_dataloader is not working

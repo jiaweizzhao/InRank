@@ -1,0 +1,46 @@
+# @package _global_
+defaults:
+  - /experiment/wt103/gpt2-in_rank_efficient_stage_2.yaml
+  - override /model/gpt2model: gpt2-large
+
+name: gpt2l-in_rank_efficient_stage_2
+
+model:
+  stage: stage_2
+  mlp_cfg:
+    linear1_cfg:
+      init_scale: 1.0
+      # the same as model.stage
+      # to do: pass argument to layer of model by model.stage
+      stage: stage_2
+      init_modes: 2
+      buffer_modes: 100
+      explained_ratio_threshold: 0.9
+      warmup_iter: 200
+      gap_iter: 25
+
+trainer:
+  precision: 32
+
+  max_epochs: 100
+  resume_from_checkpoint: /ngc_workspace/jiawei/projects/fly-incremental-project-data/checkpoints/gpt2l-in_rank_efficient_stage_1/pruning_model_checkpoint.ckpt
+
+datamodule:
+  batch_size: 4  # Per GPU
+  
+train:
+  optimizer:
+    lr: 1.5e-4
+    
+callbacks:
+  log_incremental_matex:
+    _target_: src.callbacks.incremental_monitor.LogIncrementalMLP
+
+  model_checkpoint:
+    monitor: val/loss
+    mode: min
+    save_top_k: 2
+    save_last: True
+    dirpath: /ngc_workspace/jiawei/projects/fly-incremental-project-data/checkpoints/${name}/
+    filename: epoch_{epoch}
+    auto_insert_metric_name: False

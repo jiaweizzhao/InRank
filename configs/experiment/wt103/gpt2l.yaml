@@ -1,0 +1,25 @@
+# @package _global_
+defaults:
+  - /experiment/wt103/gpt2m.yaml
+
+model:
+  config:
+    n_embd: 1280
+    n_head: 20
+    n_layer: 36
+
+trainer:
+  precision: 32
+
+datamodule:
+  batch_size: 4  # Per GPU
+
+callbacks:
+  model_checkpoint:
+    monitor: val/loss
+    mode: min
+    save_top_k: 2
+    save_last: True
+    dirpath: /ngc_workspace/jiawei/projects/fly-incremental-project-data/checkpoints/${name}/
+    filename: epoch_{epoch}
+    auto_insert_metric_name: False

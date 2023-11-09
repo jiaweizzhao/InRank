@@ -1,0 +1,4 @@
+_target_: src.models.layers.mlp.MlpCustom
+linear1_cfg:
+  _target_: src.models.layers.in_rank_efficient.InRankEfficient
+linear2_cfg: ${.linear1_cfg}

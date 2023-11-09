@@ -1,0 +1,3 @@
+_target_: src.models.layers.mlp.ButterflySimpleMlp
+drop: 0.1
+window_size: 3

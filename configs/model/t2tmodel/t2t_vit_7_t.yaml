@@ -1,0 +1,8 @@
+# @package _global_
+model:
+  _target_: src.models.vit.t2t_vit.T2T_ViT
+  tokens_type: transformer
+  embed_dim: 256
+  depth: 7
+  num_heads: 4
+  mlp_ratio: 2.0
