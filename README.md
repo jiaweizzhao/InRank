@@ -1,5 +1,5 @@
 # InRank: Incremental Low-Rank Learning
-This repository is the official implementation of the "[InRank: Incremental Low-Rank Learning](https://arxiv.org/abs/2306.11250)" (the new full version paper will update soon).
+This repository is the official implementation of the "[InRank: Incremental Low-Rank Learning](https://arxiv.org/abs/2306.11250)".
 
 We evaluate InRank-Efficient on GPT-2, and our results indicate that InRank-Efficient achieves comparable prediction performance as the full-rank counterpart while requiring at most 33% of the total ranks throughout training. This renders GPT-2 medium and GPT-2 large models up to 1.7× smaller and attains a 1.6× faster pretraining than full-rank models with even superior prediction performance.
 
